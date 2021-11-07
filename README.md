@@ -32,6 +32,15 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
 ```
 
+To enable [caching layers](https://github.com/GoogleContainerTools/kaniko#caching):
+
+```yaml
+      - uses: int128/kaniko-action@v1
+        with:
+          cache: true
+          cache-repository: ghcr.io/${{ github.repository }}/cache
+```
+
 
 ## Specification
 
@@ -40,11 +49,12 @@ jobs:
 | Name | Default | Description
 |------|----------|------------
 | `executor` | `gcr.io/kaniko-project/executor:latest` | Image of Kaniko executor
+| `cache` | `false` | Enable caching layers
+| `cache-repository` | - | Remote repository for storing cached layers
 | `build-args` | - | List of build args
 | `context` | `.` | Path to the build context
 | `file` | `Dockerfile` | Path to the Dockerfile
 | `labels` | - | List of metadata for an image
-| `no-cache` | `false` | Do not use cache
 | `push` | `false` | Push an image to the registry
 | `tags` | - | List of tags
 | `target` | - | Target stage to build
