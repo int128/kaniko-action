@@ -23,16 +23,25 @@ type Outputs = {
 }
 
 export const run = async (inputs: Inputs): Promise<Outputs> => {
-  await exec.exec('docker', ['pull', '-q', inputs.executor])
+  await withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
   await exec.exec('docker', ['run', '--rm', inputs.executor, 'version'])
 
   const outputDir = await fs.mkdtemp(`${os.tmpdir()}/kaniko-action-`)
   const args = generateArgs(inputs, outputDir)
-  await core.group('Build', () => exec.exec('docker', args))
+  await withTime('Built', () => core.group('Build', () => exec.exec('docker', args)))
 
   const digest = await readContent(`${outputDir}/digest`)
   core.info(digest)
   return { digest }
+}
+
+const withTime = async <T>(message: string, f: () => Promise<T>): Promise<T> => {
+  const start = Date.now()
+  const value = await f()
+  const end = Date.now()
+  const seconds = (end - start) / 1000
+  core.info(`${message} in ${seconds}s`)
+  return value
 }
 
 export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
