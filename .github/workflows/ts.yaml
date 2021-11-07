@@ -36,7 +36,20 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - name: e2e-test
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          images: ghcr.io/${{ github.repository }}/example
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: int128/kaniko-action
+        id: build
         uses: ./
         with:
-          name: foo
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          context: tests/fixtures
