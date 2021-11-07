@@ -2,5 +2,18 @@
   "extends": [
     "config:base",
     "github>int128/typescript-action-renovate-config"
-  ]
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^README.md$",
+        "^action.yaml$",
+      ],
+      "matchStrings": [
+        "gcr.io/kaniko-project/executor:(?<currentValue>[a-z0-9\.]+?)",
+      ],
+      "depNameTemplate": "gcr.io/kaniko-project/executor",
+      "datasourceTemplate": "docker",
+    },
+  ],
 }
