@@ -45,6 +45,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: int128/kaniko-action
         id: build
         uses: ./
@@ -53,3 +54,16 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
           context: tests/fixtures
+      - run: test '${{ steps.build.outputs.digest }}'
+
+      - name: int128/kaniko-action
+        id: build-with-cache
+        uses: ./
+        with:
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          context: tests/fixtures
+          cache: true
+          cache-repository: ghcr.io/${{ github.repository }}/cache
+      - run: test '${{ steps.build-with-cache.outputs.digest }}'

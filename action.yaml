@@ -6,6 +6,13 @@ inputs:
     description: Image of Kaniko executor
     required: true
     default: gcr.io/kaniko-project/executor:latest
+  cache:
+    description: Enable caching layers
+    required: true
+    default: 'false'
+  cache-repository:
+    description: Remote repository for storing cached layers
+    required: false
   kaniko-args:
     description: Extra args to Kaniko executor
     required: false
@@ -25,10 +32,6 @@ inputs:
   labels:
     description: List of metadata for an image
     required: false
-  no-cache:
-    description: Do not use cache
-    required: true
-    default: 'false'
   push:
     description: Push an image to the registry
     required: true

@@ -6,12 +6,13 @@ import * as path from 'path'
 
 type Inputs = {
   executor: string
+  cache: boolean
+  cacheRepository: string
   kanikoArgs: string[]
   buildArgs: string[]
   context: string
   file: string
   labels: string[]
-  noCache: boolean
   push: boolean
   tags: string[]
   target: string
@@ -69,6 +70,13 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
   }
   if (inputs.target) {
     args.push('--target', inputs.target)
+  }
+
+  if (inputs.cache) {
+    args.push('--cache=true')
+    if (inputs.cacheRepository) {
+      args.push('--cache-repo', inputs.cacheRepository)
+    }
   }
 
   args.push(...inputs.kanikoArgs)

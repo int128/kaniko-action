@@ -5,12 +5,13 @@ test('default args', () => {
   const args = generateArgs(
     {
       executor: 'gcr.io/kaniko-project/executor:latest',
+      cache: false,
+      cacheRepository: '',
       kanikoArgs: [],
       buildArgs: [],
       context: '.',
       file: 'Dockerfile',
       labels: [],
-      noCache: false,
       push: false,
       tags: [],
       target: '',
@@ -43,12 +44,13 @@ test('full args', () => {
   const args = generateArgs(
     {
       executor: 'gcr.io/kaniko-project/executor:latest',
+      cache: true,
+      cacheRepository: 'ghcr.io/int128/kaniko-action/cache',
       kanikoArgs: ['--verbosity=debug'],
       buildArgs: ['foo=1', 'bar=2'],
       context: '.',
       file: 'Dockerfile',
       labels: ['org.opencontainers.image.description=foo', 'org.opencontainers.image.url=https://www.example.com'],
-      noCache: false,
       push: false,
       tags: ['helloworld:latest', 'ghcr.io/int128/kaniko-action/example:v1.0.0'],
       target: 'server',
@@ -88,6 +90,9 @@ test('full args', () => {
     'ghcr.io/int128/kaniko-action/example:v1.0.0',
     '--target',
     'server',
+    '--cache=true',
+    '--cache-repo',
+    'ghcr.io/int128/kaniko-action/cache',
     '--verbosity=debug',
   ])
 })
