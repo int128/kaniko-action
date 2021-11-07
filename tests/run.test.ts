@@ -30,6 +30,7 @@ test('default args', () => {
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
+    '--log-timestamp=true',
     '--context',
     'dir:///workspace/',
     '--dockerfile',
@@ -69,6 +70,7 @@ test('full args', () => {
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
+    '--log-timestamp=true',
     '--context',
     'dir:///workspace/',
     '--dockerfile',

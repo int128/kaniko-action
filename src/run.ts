@@ -56,6 +56,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
     inputs.executor,
     // kaniko args
+    '--log-timestamp=true',
     '--context',
     'dir:///workspace/',
     '--dockerfile',
