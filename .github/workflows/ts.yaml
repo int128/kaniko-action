@@ -11,6 +11,7 @@ on:
       - tests/**
       - '*.json'
       - .github/workflows/ts.yaml
+      - action.yaml
   pull_request:
     branches:
       - main
@@ -19,6 +20,7 @@ on:
       - tests/**
       - '*.json'
       - .github/workflows/ts.yaml
+      - action.yaml
 
 jobs:
   ts:
