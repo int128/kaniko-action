@@ -1,9 +1,7 @@
 # kaniko-action [![ts](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml)
 
-This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko).
-It is designed to work with the Docker's official actions.
-
-This action runs the image of Kaniko executor using `docker run` command.
+This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
+It is designed to work with the Docker's official actions such as `docker/login-action` or `docker/metadata-action`.
 
 
 ## Getting Started
@@ -44,13 +42,18 @@ To enable [caching layers](https://github.com/GoogleContainerTools/kaniko#cachin
 
 ## Specification
 
+This action runs the image of Kaniko executor using `docker run` command.
+It mounts `~/.docker/config.json` to the Kaniko executor for authentication of remote registry.
+
+
 ### Inputs
 
 | Name | Default | Description
 |------|----------|------------
 | `executor` | `gcr.io/kaniko-project/executor:latest` | Image of Kaniko executor
 | `cache` | `false` | Enable caching layers
-| `cache-repository` | - | Remote repository for storing cached layers
+| `cache-repository` | - | Repository for storing cached layers
+| `kaniko-args` | - | Extra args to Kaniko executor
 | `build-args` | - | List of build args
 | `context` | `.` | Path to the build context
 | `file` | `Dockerfile` | Path to the Dockerfile
