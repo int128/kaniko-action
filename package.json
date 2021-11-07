@@ -10,7 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@actions/core": "1.6.0"
+    "@actions/core": "1.6.0",
+    "@actions/exec": "^1.1.0"
   },
   "devDependencies": {
     "@types/jest": "27.0.2",
