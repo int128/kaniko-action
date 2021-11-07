@@ -24,7 +24,6 @@ type Outputs = {
 
 export const run = async (inputs: Inputs): Promise<Outputs> => {
   await withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
-  await exec.exec('docker', ['run', '--rm', inputs.executor, 'version'])
 
   const outputDir = await fs.mkdtemp(`${os.tmpdir()}/kaniko-action-`)
   const args = generateArgs(inputs, outputDir)
