@@ -50,7 +50,7 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 
 | Name | Default | Description
 |------|----------|------------
-| `executor` | `gcr.io/kaniko-project/executor:v1.6.0` | Image of Kaniko executor
+| `executor` | `gcr.io/kaniko-project/executor:v1.7.0` | Image of Kaniko executor
 | `cache` | `false` | Enable caching layers
 | `cache-repository` | - | Repository for storing cached layers
 | `kaniko-args` | - | Extra args to Kaniko executor
