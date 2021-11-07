@@ -10,7 +10,7 @@
         "^action.yaml$",
       ],
       "matchStrings": [
-        "gcr.io/kaniko-project/executor:(?<currentValue>[a-z0-9\.]+?)",
+        "gcr.io/kaniko-project/executor:(?<currentValue>[a-z0-9\.]+)",
       ],
       "depNameTemplate": "gcr.io/kaniko-project/executor",
       "datasourceTemplate": "docker",
