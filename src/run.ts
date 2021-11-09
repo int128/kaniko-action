@@ -58,12 +58,13 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     // kaniko args
     '--context',
     'dir:///var/tmp/kaniko-build-context/',
-    '--dockerfile',
-    inputs.file,
     '--digest-file',
     '/output/digest',
   ]
 
+  if (inputs.file) {
+    args.push('--dockerfile', inputs.file)
+  }
   for (const buildArg of inputs.buildArgs) {
     args.push('--build-arg', buildArg)
   }

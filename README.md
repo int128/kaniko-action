@@ -55,8 +55,8 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 | `cache-repository` | - | Repository for storing cached layers
 | `kaniko-args` | - | Extra args to Kaniko executor
 | `build-args` | - | List of build args
-| `context` | `.` | Path to the build context
-| `file` | `Dockerfile` | Path to the Dockerfile
+| `context` | (current directory) | Path to the build context
+| `file` | - | Path to the Dockerfile
 | `labels` | - | List of metadata for an image
 | `push` | `false` | Push an image to the registry
 | `tags` | - | List of tags
