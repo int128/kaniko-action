@@ -23,12 +23,10 @@ inputs:
     required: false
   context:
     description: Path to the build context
-    required: true
-    default: '.'
+    required: false
   file:
     description: Path to the Dockerfile
-    required: true
-    default: Dockerfile
+    required: false
   labels:
     description: List of metadata for an image
     required: false
