@@ -49,7 +49,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     'run',
     '--rm',
     '-v',
-    `${path.resolve(inputs.context)}:/workspace:ro`,
+    `${path.resolve(inputs.context)}:/var/tmp/kaniko-build-context:ro`,
     '-v',
     `${outputDir}:/output`,
     '-v',
@@ -57,7 +57,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     inputs.executor,
     // kaniko args
     '--context',
-    'dir:///workspace/',
+    'dir:///var/tmp/kaniko-build-context/',
     '--dockerfile',
     inputs.file,
     '--digest-file',
