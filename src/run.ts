@@ -63,7 +63,10 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
   ]
 
   if (inputs.file) {
-    args.push('--dockerfile', inputs.file)
+    // docker build command resolves the Dockerfile from the context root
+    // https://docs.docker.com/engine/reference/commandline/build/#specify-a-dockerfile--f
+    const dockerfileInContext = path.relative(inputs.context, inputs.file)
+    args.push('--dockerfile', dockerfileInContext)
   }
   for (const buildArg of inputs.buildArgs) {
     args.push('--build-arg', buildArg)

@@ -62,6 +62,10 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 | `tags` | - | List of tags
 | `target` | - | Target stage to build
 
+If `file` is set, this action passes the relative path to `kaniko`.
+Dockerfile must be in the context.
+It is same as [the behavior of docker build](https://docs.docker.com/engine/reference/commandline/build/#specify-a-dockerfile--f).
+
 
 ### Outputs
 
