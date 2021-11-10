@@ -51,7 +51,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     '-v',
     `${path.resolve(inputs.context)}:/var/tmp/kaniko-build-context:ro`,
     '-v',
-    `${outputDir}:/output`,
+    `${outputDir}:/var/tmp/kaniko-output`,
     '-v',
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
     inputs.executor,
@@ -59,7 +59,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     '--context',
     'dir:///var/tmp/kaniko-build-context/',
     '--digest-file',
-    '/output/digest',
+    '/var/tmp/kaniko-output/digest',
   ]
 
   if (inputs.file) {
