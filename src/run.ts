@@ -8,6 +8,9 @@ type Inputs = {
   executor: string
   cache: boolean
   cacheRepository: string
+  cacheTTL: string
+  registryMirrors: string[]
+  verbosity: string
   kanikoArgs: string[]
   buildArgs: string[]
   context: string
@@ -89,6 +92,15 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     if (inputs.cacheRepository) {
       args.push('--cache-repo', inputs.cacheRepository)
     }
+  }
+  if (inputs.cacheTTL) {
+    args.push('--cache-ttl', inputs.cacheTTL)
+  }
+  for (const mirror of inputs.registryMirrors) {
+    args.push('--registry-mirror', mirror)
+  }
+  if (inputs.verbosity) {
+    args.push('--verbosity', inputs.verbosity)
   }
 
   args.push(...inputs.kanikoArgs)
