@@ -1,23 +1,25 @@
 import * as os from 'os'
 import { generateArgs } from '../src/run'
 
+const defaultInputs = {
+  executor: 'gcr.io/kaniko-project/executor:latest',
+  cache: false,
+  cacheRepository: '',
+  cacheTTL: '',
+  registryMirrors: [],
+  verbosity: '',
+  kanikoArgs: [],
+  buildArgs: [],
+  context: '',
+  file: '',
+  labels: [],
+  push: false,
+  tags: [],
+  target: '',
+}
+
 test('default args', () => {
-  const args = generateArgs(
-    {
-      executor: 'gcr.io/kaniko-project/executor:latest',
-      cache: false,
-      cacheRepository: '',
-      kanikoArgs: [],
-      buildArgs: [],
-      context: '',
-      file: '',
-      labels: [],
-      push: false,
-      tags: [],
-      target: '',
-    },
-    '/tmp/kaniko-action'
-  )
+  const args = generateArgs(defaultInputs, '/tmp/kaniko-action')
   expect(args).toStrictEqual([
     // docker args
     'run',
@@ -44,7 +46,10 @@ test('full args', () => {
       executor: 'gcr.io/kaniko-project/executor:latest',
       cache: true,
       cacheRepository: 'ghcr.io/int128/kaniko-action/cache',
-      kanikoArgs: ['--verbosity=debug'],
+      cacheTTL: '30d',
+      registryMirrors: ['mirror.example.com', 'mirror.gcr.io'],
+      verbosity: 'debug',
+      kanikoArgs: ['--skip-tls-verify', '--help'],
       buildArgs: ['foo=1', 'bar=2'],
       context: 'foo/bar',
       file: 'foo/bar/baz/my.Dockerfile',
@@ -91,24 +96,24 @@ test('full args', () => {
     '--cache=true',
     '--cache-repo',
     'ghcr.io/int128/kaniko-action/cache',
-    '--verbosity=debug',
+    '--cache-ttl',
+    '30d',
+    '--registry-mirror',
+    'mirror.example.com',
+    '--registry-mirror',
+    'mirror.gcr.io',
+    '--verbosity',
+    'debug',
+    '--skip-tls-verify',
+    '--help',
   ])
 })
 
 test('with dockerfile', () => {
   const args = generateArgs(
     {
-      executor: 'gcr.io/kaniko-project/executor:latest',
-      cache: false,
-      cacheRepository: '',
-      kanikoArgs: [],
-      buildArgs: [],
-      context: '',
+      ...defaultInputs,
       file: 'my.Dockerfile',
-      labels: [],
-      push: false,
-      tags: [],
-      target: '',
     },
     '/tmp/kaniko-action'
   )

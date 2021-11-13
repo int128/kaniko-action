@@ -53,7 +53,15 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 | `executor` | `gcr.io/kaniko-project/executor:v1.7.0` | Image of Kaniko executor
 | `cache` | `false` | Enable caching layers
 | `cache-repository` | - | Repository for storing cached layers
+| `cache-ttl` | - | Cache timeout
+| `registry-mirror` | - | Use registry mirror(s)
+| `verbosity` | - | Set the logging level
 | `kaniko-args` | - | Extra args to Kaniko executor
+
+The following inputs are mostly compatible with `docker/build-push-action`.
+
+| Name | Default | Description
+|------|----------|------------
 | `build-args` | - | List of build args
 | `context` | (current directory) | Path to the build context
 | `file` | - | Path to the Dockerfile
