@@ -3,15 +3,16 @@
 This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
 It is designed to work with the Docker's official actions such as `docker/login-action` or `docker/metadata-action`.
 
+Kaniko supports layer caching. See https://github.com/GoogleContainerTools/kaniko#caching for more.
+
 
 ## Getting Started
 
-To build and push an image to GHCR:
+To build and push a container image to GitHub Container Registry,
 
 ```yaml
 jobs:
   build:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: docker/metadata-action@v3
@@ -28,15 +29,37 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
-```
-
-To enable [caching layers](https://github.com/GoogleContainerTools/kaniko#caching):
-
-```yaml
-      - uses: int128/kaniko-action@v1
-        with:
           cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
+```
+
+To build and push a container image to Amazon ECR,
+
+```yaml
+jobs:
+  build:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aws-actions/amazon-ecr-login@v1
+      - uses: int128/create-ecr-repository-action@v1
+        id: ecr
+        with:
+          repository: example
+      - uses: int128/create-ecr-repository-action@v1
+        id: ecr-cache
+        with:
+          repository: example/cache
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          images: ${{ steps.ecr.outputs.repository-uri }}
+      - uses: int128/kaniko-action@v1
+        with:
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache: true
+          cache-repository: ${{ steps.ecr-cache.outputs.repository-uri }}
 ```
 
 
