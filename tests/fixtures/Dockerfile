@@ -1,7 +1,7 @@
 FROM alpine:3.14.2
 WORKDIR /workspace
-COPY example.txt .
-COPY example/ example/
+COPY . .
+RUN find
 RUN test -f example/example.txt
-RUN test ! -f example/dummy
-RUN date > /timestamp
+RUN test ! -f example/__tests__/dummy
+RUN date > timestamp
