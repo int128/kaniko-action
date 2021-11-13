@@ -1,2 +1,2 @@
 *.bar
-**/dummy
+**/__tests__/
