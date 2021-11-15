@@ -13,6 +13,15 @@ inputs:
   cache-repository:
     description: Remote repository for storing cached layers
     required: false
+  cache-ttl:
+    description: Cache timeout
+    required: false
+  registry-mirror:
+    description: Use registry mirror(s)
+    required: false
+  verbosity:
+    description: Set the logging level
+    required: false
   kaniko-args:
     description: Extra args to Kaniko executor
     required: false
