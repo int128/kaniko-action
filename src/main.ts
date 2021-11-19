@@ -7,6 +7,7 @@ const main = async (): Promise<void> => {
     cache: core.getBooleanInput('cache'),
     cacheRepository: core.getInput('cache-repository'),
     cacheTTL: core.getInput('cache-ttl'),
+    pushRetry: core.getInput('push-retry'),
     registryMirrors: core.getMultilineInput('registry-mirror'),
     verbosity: core.getInput('verbosity'),
     kanikoArgs: core.getMultilineInput('kaniko-args'),

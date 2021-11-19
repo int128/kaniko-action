@@ -16,6 +16,9 @@ inputs:
   cache-ttl:
     description: Cache timeout
     required: false
+  push-retry:
+    description: Number of retries for the push of an image
+    required: false
   registry-mirror:
     description: Use registry mirror(s)
     required: false
