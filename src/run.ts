@@ -9,6 +9,7 @@ type Inputs = {
   cache: boolean
   cacheRepository: string
   cacheTTL: string
+  pushRetry: string
   registryMirrors: string[]
   verbosity: string
   kanikoArgs: string[]
@@ -95,6 +96,9 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
   }
   if (inputs.cacheTTL) {
     args.push('--cache-ttl', inputs.cacheTTL)
+  }
+  if (inputs.pushRetry) {
+    args.push('--push-retry', inputs.pushRetry)
   }
   for (const mirror of inputs.registryMirrors) {
     args.push('--registry-mirror', mirror)

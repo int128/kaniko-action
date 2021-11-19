@@ -77,6 +77,7 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 | `cache` | `false` | Enable caching layers
 | `cache-repository` | - | Repository for storing cached layers
 | `cache-ttl` | - | Cache timeout
+| `push-retry` | - | Number of retries for the push of an image
 | `registry-mirror` | - | Use registry mirror(s)
 | `verbosity` | - | Set the logging level
 | `kaniko-args` | - | Extra args to Kaniko executor
