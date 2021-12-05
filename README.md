@@ -71,32 +71,27 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 
 ### Inputs
 
-| Name | Default | Description
-|------|----------|------------
-| `executor` | `gcr.io/kaniko-project/executor:v1.7.0` | Image of Kaniko executor
-| `cache` | `false` | Enable caching layers
-| `cache-repository` | - | Repository for storing cached layers
-| `cache-ttl` | - | Cache timeout
-| `push-retry` | - | Number of retries for the push of an image
-| `registry-mirror` | - | Use registry mirror(s)
-| `verbosity` | - | Set the logging level
-| `kaniko-args` | - | Extra args to Kaniko executor
+Here is a list of inputs. See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/kaniko).
 
-The following inputs are mostly compatible with `docker/build-push-action`.
+| Name | Description | Corresponding flag
+|------|-------------|-------------------
+| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.7.0` | -
+| `context` <sup>*1</sup> | Path to the build context. Default to the workspace | -
+| `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
+| `build-args` <sup>*1</sup> | List of build args | `--build-arg`
+| `labels` <sup>*1</sup> | List of metadata for an image | `--label`
+| `push` <sup>*1</sup> | Push an image to the registry. Default to true | `--no-push`
+| `tags` <sup>*1</sup> | List of tags | `--destination`
+| `target` <sup>*1</sup> | Target stage to build | `--target`
+| `cache` | Enable caching layers | `--cache`
+| `cache-repository` | Repository for storing cached layers | `--cache-repo`
+| `cache-ttl` | Cache timeout | `--cache-ttl`
+| `push-retry` | Number of retries for the push of an image | `--push-retry`
+| `registry-mirror` | Use registry mirror(s) | `--registry-mirror`
+| `verbosity` | Set the logging level | `--verbosity`
+| `kaniko-args` | Extra args to Kaniko executor | -
 
-| Name | Default | Description
-|------|----------|------------
-| `build-args` | - | List of build args
-| `context` | (current directory) | Path to the build context
-| `file` | - | Path to the Dockerfile
-| `labels` | - | List of metadata for an image
-| `push` | `false` | Push an image to the registry
-| `tags` | - | List of tags
-| `target` | - | Target stage to build
-
-If `file` is set, this action passes the relative path to `kaniko`.
-Dockerfile must be in the context.
-It is same as [the behavior of docker build](https://docs.docker.com/engine/reference/commandline/build/#specify-a-dockerfile--f).
+<sup>*1</sup> These inputs are compatible with `docker/build-push-action`
 
 
 ### Outputs
