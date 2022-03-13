@@ -31,6 +31,8 @@ test('default args', () => {
     `/tmp/kaniko-action:/kaniko/action/output`,
     '-v',
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
+    '-e',
+    'container=docker',
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
     '--context',
@@ -72,6 +74,8 @@ test('full args', () => {
     `/tmp/kaniko-action:/kaniko/action/output`,
     '-v',
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
+    '-e',
+    'container=docker',
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
     '--context',
@@ -131,6 +135,8 @@ test('with dockerfile', () => {
     `/tmp/kaniko-action:/kaniko/action/output`,
     '-v',
     `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
+    '-e',
+    'container=docker',
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
     '--context',
