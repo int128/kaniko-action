@@ -31,7 +31,18 @@ export const run = async (inputs: Inputs): Promise<Outputs> => {
 
   const outputDir = await fs.mkdtemp(`${os.tmpdir()}/kaniko-action-`)
   const args = generateArgs(inputs, outputDir)
-  await withTime('Built', () => core.group('Build', () => exec.exec('docker', args)))
+  await withTime('Built', () =>
+    core.group('Build', async () => {
+      const output = await exec.getExecOutput('docker', args)
+      core.summary.addHeading(`Build result`)
+      core.summary.addCodeBlock(`docker ${args.join('\n')}`)
+      core.summary.addRaw('stdout:')
+      core.summary.addCodeBlock(output.stdout)
+      core.summary.addRaw('stderr:')
+      core.summary.addCodeBlock(output.stderr)
+    })
+  )
+  await core.summary.write()
 
   const digest = await readContent(`${outputDir}/digest`)
   core.info(digest)
