@@ -45,7 +45,7 @@ inputs:
   push:
     description: Push an image to the registry
     required: true
-    default: 'false'
+    default: 'true'
   tags:
     description: List of tags
     required: false
