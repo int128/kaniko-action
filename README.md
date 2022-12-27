@@ -80,7 +80,7 @@ Here is a list of inputs. See also the flags of [Kaniko executor](https://github
 | `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
 | `build-args` <sup>*1</sup> | List of build args | `--build-arg`
 | `labels` <sup>*1</sup> | List of metadata for an image | `--label`
-| `push` <sup>*1</sup> | Push an image to the registry. Default to true | `--no-push`
+| `push` <sup>*1</sup> | Push an image to the registry. Default to false | `--no-push`
 | `tags` <sup>*1</sup> | List of tags | `--destination`
 | `target` <sup>*1</sup> | Target stage to build | `--target`
 | `cache` | Enable caching layers | `--cache`
