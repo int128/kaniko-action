@@ -57,7 +57,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     '-v',
     `${outputDir}:/kaniko/action/output`,
     '-v',
-    `${os.homedir()}/.docker/config.json:/kaniko/.docker/config.json:ro`,
+    `${os.homedir()}/.docker/:/kaniko/.docker/:ro`,
     // workaround for kaniko v1.8.0+
     // https://github.com/GoogleContainerTools/kaniko/issues/1542#issuecomment-1066028047
     '-e',
