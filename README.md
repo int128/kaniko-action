@@ -1,7 +1,7 @@
 # kaniko-action [![ts](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml)
 
 This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
-It is designed to work with the Docker's official actions such as `docker/login-action` or `docker/metadata-action`.
+It is designed to work with the Docker's official actions such as [docker/login-action](https://github.com/docker/login-action) or [docker/metadata-action](https://github.com/docker/metadata-action).
 
 Kaniko supports layer caching. See https://github.com/GoogleContainerTools/kaniko#caching for more.
 
@@ -14,7 +14,7 @@ To build and push a container image to GitHub Container Registry,
 jobs:
   build:
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: docker/metadata-action@v3
         id: metadata
         with:
@@ -39,7 +39,7 @@ To build and push a container image to Amazon ECR,
 jobs:
   build:
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: aws-actions/amazon-ecr-login@v1
       - uses: int128/create-ecr-repository-action@v1
         id: ecr
@@ -61,6 +61,14 @@ jobs:
           cache: true
           cache-repository: ${{ steps.ecr-cache.outputs.repository-uri }}
 ```
+
+
+## Build a multi-architecture image
+
+It can build a multi-architecture image such as `amd64` and `arm64` by GitHub Actions self-hosted runner.
+For example, we can deploy [actions-runner-controller](https://github.com/actions/actions-runner-controller) on AWS Graviton (ARM) nodes and build an ARM image on it.
+
+See also https://github.com/int128/docker-manifest-create-action for more.
 
 
 ## Specification
@@ -91,7 +99,7 @@ Here is a list of inputs. See also the flags of [Kaniko executor](https://github
 | `verbosity` | Set the logging level | `--verbosity`
 | `kaniko-args` | Extra args to Kaniko executor | -
 
-<sup>*1</sup> These inputs are compatible with `docker/build-push-action`
+<sup>*1</sup> These inputs are compatible with [docker/build-push-action](https://github.com/docker/build-push-action).
 
 
 ### Outputs
