@@ -40,26 +40,22 @@ jobs:
   build:
     steps:
       - uses: actions/checkout@v3
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::ACCOUNT:role/ROLE
       - uses: aws-actions/amazon-ecr-login@v1
-      - uses: int128/create-ecr-repository-action@v1
         id: ecr
-        with:
-          repository: example
-      - uses: int128/create-ecr-repository-action@v1
-        id: ecr-cache
-        with:
-          repository: example/cache
-      - uses: docker/metadata-action@v3
+      - uses: docker/metadata-action@v4
         id: metadata
         with:
-          images: ${{ steps.ecr.outputs.repository-uri }}
+          images: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}
       - uses: int128/kaniko-action@v1
         with:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
           cache: true
-          cache-repository: ${{ steps.ecr-cache.outputs.repository-uri }}
+          cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
 ```
 
 
