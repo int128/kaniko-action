@@ -29,11 +29,12 @@ type Outputs = {
 export const run = async (inputs: Inputs): Promise<Outputs> => {
   await withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
 
-  const outputDir = await fs.mkdtemp(`${os.tmpdir()}/kaniko-action-`)
-  const args = generateArgs(inputs, outputDir)
+  const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()
+  const outputsDir = await fs.mkdtemp(path.join(runnerTempDir, 'kaniko-action-'))
+  const args = generateArgs(inputs, outputsDir)
   await withTime('Built', () => core.group('Build', () => exec.exec('docker', args)))
 
-  const digest = await readContent(`${outputDir}/digest`)
+  const digest = await readContent(`${outputsDir}/digest`)
   core.info(digest)
   return { digest }
 }
@@ -47,7 +48,7 @@ const withTime = async <T>(message: string, f: () => Promise<T>): Promise<T> => 
   return value
 }
 
-export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
+export const generateArgs = (inputs: Inputs, outputsDir: string): string[] => {
   const args = [
     // docker args
     'run',
@@ -55,7 +56,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     '-v',
     `${path.resolve(inputs.context)}:/kaniko/action/context:ro`,
     '-v',
-    `${outputDir}:/kaniko/action/output`,
+    `${outputsDir}:/kaniko/action/outputs`,
     '-v',
     `${os.homedir()}/.docker/:/kaniko/.docker/:ro`,
     // workaround for kaniko v1.8.0+
@@ -67,7 +68,7 @@ export const generateArgs = (inputs: Inputs, outputDir: string): string[] => {
     '--context',
     'dir:///kaniko/action/context/',
     '--digest-file',
-    '/kaniko/action/output/digest',
+    '/kaniko/action/outputs/digest',
   ]
 
   if (inputs.file) {
