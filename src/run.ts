@@ -27,12 +27,14 @@ type Outputs = {
 }
 
 export const run = async (inputs: Inputs): Promise<Outputs> => {
-  await withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
+  await core.group(`Pulling ${inputs.executor}`, () =>
+    withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
+  )
 
   const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()
   const outputsDir = await fs.mkdtemp(path.join(runnerTempDir, 'kaniko-action-'))
   const args = generateArgs(inputs, outputsDir)
-  await withTime('Built', () => core.group('Build', () => exec.exec('docker', args)))
+  await withTime('Built', () => exec.exec('docker', args))
 
   const digest = await readContent(`${outputsDir}/digest`)
   core.info(digest)
