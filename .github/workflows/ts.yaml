@@ -33,11 +33,11 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - uses: docker/metadata-action@v4.3.0
+      - uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96 # v4.3.0
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}/example
-      - uses: docker/login-action@v2.1.0
+      - uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2.1.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
