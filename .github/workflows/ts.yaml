@@ -1,6 +1,13 @@
 name: ts
 
 on:
+  pull_request:
+    paths:
+      - src/**
+      - tests/**
+      - '*.json'
+      - action.yaml
+      - .github/workflows/ts.yaml
   push:
     branches:
       - main
@@ -8,39 +15,29 @@ on:
       - src/**
       - tests/**
       - '*.json'
-      - .github/workflows/ts.yaml
       - action.yaml
-  pull_request:
-    branches:
-      - main
-    paths:
-      - src/**
-      - tests/**
-      - '*.json'
       - .github/workflows/ts.yaml
-      - action.yaml
 
 jobs:
-  ts:
+  test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 16
           cache: yarn
       - run: yarn
-      - run: yarn lint
-      - run: yarn format-check
       - run: yarn test
       - run: yarn build
       - run: yarn package
 
-      - uses: docker/metadata-action@v4
+      - uses: docker/metadata-action@v4.3.0
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}/example
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@v2.1.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -67,3 +64,17 @@ jobs:
           cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
       - run: test '${{ steps.build-with-cache.outputs.digest }}'
+
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn
+      - run: yarn lint --fix
+      - run: yarn format
+      - uses: int128/update-generated-files-action@35584f7a0a4c1dfc697c8acba5459fcf30fe3a5b # v2.31.0
