@@ -79,7 +79,6 @@ jobs:
       image: ghcr.io/${{ github.repository }}/example
       digest: ${{ needs.test.outputs.digest }}
       registry-username: ${{ github.actor }}
-      compile-generator: true
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
 
