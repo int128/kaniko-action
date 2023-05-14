@@ -3,12 +3,9 @@
 This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
 It is designed to work with the Docker's official actions such as [docker/login-action](https://github.com/docker/login-action) or [docker/metadata-action](https://github.com/docker/metadata-action).
 
-Kaniko supports layer caching. See https://github.com/GoogleContainerTools/kaniko#caching for more.
-
-
 ## Getting Started
 
-To build and push a container image to GitHub Container Registry,
+To build and push a container image to GitHub Container Registry (GHCR),
 
 ```yaml
 jobs:
@@ -58,24 +55,15 @@ jobs:
           cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
 ```
 
-
-## Build a multi-architecture image
-
-It can build a multi-architecture image such as `amd64` and `arm64` by GitHub Actions self-hosted runner.
-For example, we can deploy [actions-runner-controller](https://github.com/actions/actions-runner-controller) on AWS Graviton (ARM) nodes and build an ARM image on it.
-
-See also https://github.com/int128/docker-manifest-create-action for more.
-
-
 ## Specification
 
 This action runs the image of Kaniko executor using `docker run` command.
 It mounts `~/.docker/config.json` to the Kaniko executor for authentication of remote registry.
 
-
 ### Inputs
 
-Here is a list of inputs. See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/kaniko).
+This action supports the below inputs.
+See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/kaniko).
 
 | Name | Description | Corresponding flag
 |------|-------------|-------------------
@@ -97,9 +85,76 @@ Here is a list of inputs. See also the flags of [Kaniko executor](https://github
 
 <sup>*1</sup> These inputs are compatible with [docker/build-push-action](https://github.com/docker/build-push-action).
 
-
 ### Outputs
 
 | Name | Description
 |------|------------
 | `digest` | Image digest such as `sha256:abcdef...`
+
+## Examples
+
+### Cache layers
+
+Kaniko supports the layer caching with a remote repository such as GHCR or Amazon ECR.
+See https://github.com/GoogleContainerTools/kaniko#caching for details.
+
+To enable the layer caching, set a cache repository.
+
+```yaml
+      - uses: int128/kaniko-action@v1
+        with:
+          cache: true
+          cache-repository: ghcr.io/${{ github.repository }}/cache
+```
+
+### Build a multi-architecture image
+
+We can build a multi-architecture image such as `amd64` and `arm64` on self-hosted runners in GitHub Actions.
+See also https://github.com/int128/docker-manifest-create-action.
+
+Here is an example stack to build an `arm64` image.
+
+- Provision an Amazon EKS cluster
+- Deploy [aws/karpenter](https://github.com/aws/karpenter)
+- Deploy [actions/actions-runner-controller](https://github.com/actions/actions-runner-controller)
+- Run int128/kaniko-action on AWS Graviton 2 (ARM) nodes
+
+### Use an image digest
+
+You can construct an image URI from outputs.
+For example,
+
+```
+ghcr.io/${{ github.repository }}@${{ steps.build.outputs.digest }}
+```
+
+will be:
+
+```
+ghcr.io/int128/kaniko-action@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+```
+
+Here is an example workflow to build and deploy an application.
+
+```yaml
+jobs:
+  deploy:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aws-actions/amazon-ecr-login@v1
+        id: ecr
+      - uses: docker/metadata-action@v4
+        id: metadata
+        with:
+          images: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}
+      - uses: int128/kaniko-action@v1
+        id: build
+        with:
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache: true
+          cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
+      - run: kustomize edit set image myapp=${{ steps.ecr.outputs.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}
+      - run: kustomize build | kubectl apply -f -
+```
