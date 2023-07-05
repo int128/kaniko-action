@@ -28,7 +28,7 @@ type Outputs = {
 
 export const run = async (inputs: Inputs): Promise<Outputs> => {
   await core.group(`Pulling ${inputs.executor}`, () =>
-    withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor]))
+    withTime('Pulled', () => exec.exec('docker', ['pull', '-q', inputs.executor])),
   )
 
   const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()

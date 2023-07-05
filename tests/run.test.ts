@@ -62,7 +62,7 @@ test('full args', () => {
       tags: ['helloworld:latest', 'ghcr.io/int128/kaniko-action/example:v1.0.0'],
       target: 'server',
     },
-    '/tmp/kaniko-action'
+    '/tmp/kaniko-action',
   )
   expect(args).toStrictEqual([
     // docker args
@@ -123,7 +123,7 @@ test('with dockerfile', () => {
       ...defaultInputs,
       file: 'my.Dockerfile',
     },
-    '/tmp/kaniko-action'
+    '/tmp/kaniko-action',
   )
   expect(args).toStrictEqual([
     // docker args
