@@ -67,7 +67,7 @@ See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/
 
 | Name | Description | Corresponding flag
 |------|-------------|-------------------
-| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.12.1` | -
+| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.13.0` | -
 | `context` <sup>*1</sup> | Path to the build context. Default to the workspace | -
 | `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
 | `build-args` <sup>*1</sup> | List of build args | `--build-arg`
