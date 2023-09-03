@@ -1,7 +1,11 @@
 # kaniko-action [![ts](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/kaniko-action/actions/workflows/ts.yaml)
 
-This is an action to build and push a Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
-It is designed to work with the Docker's official actions such as [docker/login-action](https://github.com/docker/login-action) or [docker/metadata-action](https://github.com/docker/metadata-action).
+This is an action to build and push a contaier image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) in GitHub Actions.
+It is just a wrapper of Kaniko executor, that is,
+
+  docker run --rm gcr.io/kaniko-project/executor:v1.15.0
+
+This action is compatible with the Docker's official actions such as [docker/login-action](https://github.com/docker/login-action) or [docker/metadata-action](https://github.com/docker/metadata-action).
 
 ## Getting Started
 
