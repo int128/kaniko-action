@@ -58,5 +58,5 @@ outputs:
     description: 'Image content-addressable identifier also called a digest'
 
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
