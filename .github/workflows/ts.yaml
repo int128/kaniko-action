@@ -6,8 +6,7 @@ on:
       - src/**
       - tests/**
       - '*.json'
-      - '*.lock'
-      - action.yaml
+      - '*.yaml'
       - .github/workflows/ts.yaml
   push:
     branches:
@@ -16,8 +15,7 @@ on:
       - src/**
       - tests/**
       - '*.json'
-      - '*.lock'
-      - action.yaml
+      - '*.yaml'
       - .github/workflows/ts.yaml
 
 jobs:
