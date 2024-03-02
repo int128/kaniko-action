@@ -6,6 +6,7 @@ on:
       - src/**
       - tests/**
       - '*.json'
+      - '*.lock'
       - action.yaml
       - .github/workflows/ts.yaml
   push:
@@ -15,6 +16,7 @@ on:
       - src/**
       - tests/**
       - '*.json'
+      - '*.lock'
       - action.yaml
       - .github/workflows/ts.yaml
 
@@ -27,11 +29,10 @@ jobs:
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn
-      - run: yarn test
-      - run: yarn build
-      - run: yarn package
+      - run: corepack enable pnpm
+      - run: pnpm i
+      - run: pnpm test
+      - run: pnpm build
 
       - uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
         id: metadata
@@ -73,8 +74,8 @@ jobs:
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn
-      - run: yarn lint --fix
-      - run: yarn format
+      - run: corepack enable pnpm
+      - run: pnpm i
+      - run: pnpm lint --fix
+      - run: pnpm format
       - uses: int128/update-generated-files-action@1bf39f3aec4afa88c0c7060cdb0d88332c052991 # v2.48.0
