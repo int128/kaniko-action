@@ -76,4 +76,4 @@ jobs:
       - run: pnpm i
       - run: pnpm lint --fix
       - run: pnpm format
-      - uses: int128/update-generated-files-action@81b1c0b3218bff8b7ccbd6b66601fe87e9cda7f9 # v2.49.0
+      - uses: int128/update-generated-files-action@0c31bff4a68c9a6f4ac83dd528bf45f77620f191 # v2.50.0
