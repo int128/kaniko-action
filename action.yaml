@@ -5,7 +5,7 @@ inputs:
   executor:
     description: Image of Kaniko executor
     required: true
-    default: gcr.io/kaniko-project/executor:v1.21.1
+    default: gcr.io/kaniko-project/executor:v1.22.0
   cache:
     description: Enable caching layers
     required: true
