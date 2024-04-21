@@ -1,5 +1,5 @@
 import * as os from 'os'
-import { generateArgs } from '../src/run'
+import { generateArgs } from '../src/run.js'
 
 const defaultInputs = {
   executor: 'gcr.io/kaniko-project/executor:latest',
