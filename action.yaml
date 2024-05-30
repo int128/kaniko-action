@@ -28,7 +28,9 @@ inputs:
   kaniko-args:
     description: Extra args to Kaniko executor
     required: false
-
+  extra-context:
+    description: Content to mount under /kaniko/extra
+    required: false
   # compatible with https://github.com/docker/build-push-action
   build-args:
     description: List of build args

@@ -19,7 +19,8 @@ type Inputs = {
   labels: string[]
   push: boolean
   tags: string[]
-  target: string
+  target: string,
+  extraContext: string[]
 }
 
 type Outputs = {
@@ -33,6 +34,7 @@ export const run = async (inputs: Inputs): Promise<Outputs> => {
 
   const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()
   const outputsDir = await fs.mkdtemp(path.join(runnerTempDir, 'kaniko-action-'))
+
   const args = generateArgs(inputs, outputsDir)
   await withTime('Built', () => exec.exec('docker', args))
 
@@ -51,6 +53,7 @@ const withTime = async <T>(message: string, f: () => Promise<T>): Promise<T> => 
 }
 
 export const generateArgs = (inputs: Inputs, outputsDir: string): string[] => {
+
   const args = [
     // docker args
     'run',
@@ -65,14 +68,19 @@ export const generateArgs = (inputs: Inputs, outputsDir: string): string[] => {
     // https://github.com/GoogleContainerTools/kaniko/issues/1542#issuecomment-1066028047
     '-e',
     'container=docker',
+  ];
+  for (const mount of inputs.extraContext) {
+    const [id, path] = mount.split('=', 2);
+    args.push('-v', `${path}:/kaniko/action/extra-context/${id}:ro`)
+  }
+  args.push(
     inputs.executor,
     // kaniko args
     '--context',
     'dir:///kaniko/action/context/',
     '--digest-file',
-    '/kaniko/action/outputs/digest',
-  ]
-
+    '/kaniko/action/outputs/digest'
+  )
   if (inputs.file) {
     // docker build command resolves the Dockerfile from the context root
     // https://docs.docker.com/engine/reference/commandline/build/#specify-a-dockerfile--f

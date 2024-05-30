@@ -18,6 +18,7 @@ const main = async (): Promise<void> => {
     push: core.getBooleanInput('push'),
     tags: core.getMultilineInput('tags'),
     target: core.getInput('target'),
+    extraContext: core.getMultilineInput("extra-context")
   })
   core.setOutput('digest', outputs.digest)
 }

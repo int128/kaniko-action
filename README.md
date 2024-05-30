@@ -75,6 +75,7 @@ See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/
 |------|-------------|-------------------
 | `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.23.0` | -
 | `context` <sup>*1</sup> | Path to the build context. Default to the workspace | -
+| `extra-context` | List of id=path for extra files to mount into kaniko under /kaniko/action/extra-context/:id. Useful for providing secrets to the build | -
 | `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
 | `build-args` <sup>*1</sup> | List of build args | `--build-arg`
 | `labels` <sup>*1</sup> | List of metadata for an image | `--label`
@@ -102,7 +103,7 @@ See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/
 ### Cache layers
 
 Kaniko supports the layer caching with a remote repository such as GHCR or Amazon ECR.
-See https://github.com/GoogleContainerTools/kaniko#caching for details.
+See <https://github.com/GoogleContainerTools/kaniko#caching> for details.
 
 To enable the layer caching, set a cache repository.
 
@@ -116,7 +117,7 @@ To enable the layer caching, set a cache repository.
 ### Build a multi-architecture image
 
 We can build a multi-architecture image such as `amd64` and `arm64` on self-hosted runners in GitHub Actions.
-See also https://github.com/int128/docker-manifest-create-action.
+See also <https://github.com/int128/docker-manifest-create-action>.
 
 Here is an example stack to build an `arm64` image.
 
