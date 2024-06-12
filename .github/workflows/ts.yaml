@@ -22,6 +22,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
@@ -63,6 +65,21 @@ jobs:
           cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
       - run: test '${{ steps.build-with-cache.outputs.digest }}'
+
+  # test this action with SLSA https://github.com/slsa-framework/slsa-github-generator
+  provenance:
+    needs: test
+    permissions:
+      id-token: write
+      actions: read
+      packages: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.5.0
+    with:
+      image: ghcr.io/${{ github.repository }}/example
+      digest: ${{ needs.test.outputs.digest }}
+      registry-username: ${{ github.actor }}
+    secrets:
+      registry-password: ${{ secrets.GITHUB_TOKEN }}
 
   generate:
     runs-on: ubuntu-latest
