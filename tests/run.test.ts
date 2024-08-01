@@ -17,6 +17,7 @@ const defaultInputs = {
   push: false,
   tags: [],
   target: '',
+  extraContext: []
 }
 
 test('default args', () => {
@@ -61,6 +62,7 @@ test('full args', () => {
       push: false,
       tags: ['helloworld:latest', 'ghcr.io/int128/kaniko-action/example:v1.0.0'],
       target: 'server',
+      extraContext: ['npmrc=/tmp/npmrc-5ab']
     },
     '/tmp/kaniko-action',
   )
@@ -76,6 +78,8 @@ test('full args', () => {
     `${os.homedir()}/.docker/:/kaniko/.docker/:ro`,
     '-e',
     'container=docker',
+    '-v',
+    '/tmp/npmrc-5ab:/kaniko/action/extra-context/npmrc:ro',
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
     '--context',
