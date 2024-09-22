@@ -4,8 +4,9 @@
     "github>int128/typescript-action-renovate-config",
     "helpers:pinGitHubActionDigests",
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Kaniko version",
       "fileMatch": [
         "^README.md$",
