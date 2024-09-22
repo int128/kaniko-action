@@ -71,31 +71,31 @@ It mounts `~/.docker/config.json` to the Kaniko executor for authentication of r
 This action supports the below inputs.
 See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/kaniko).
 
-| Name | Description | Corresponding flag
-|------|-------------|-------------------
-| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.23.0` | -
-| `context` <sup>*1</sup> | Path to the build context. Default to the workspace | -
-| `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
-| `build-args` <sup>*1</sup> | List of build args | `--build-arg`
-| `labels` <sup>*1</sup> | List of metadata for an image | `--label`
-| `push` <sup>*1</sup> | Push an image to the registry. Default to false | `--no-push`
-| `tags` <sup>*1</sup> | List of tags | `--destination`
-| `target` <sup>*1</sup> | Target stage to build | `--target`
-| `cache` | Enable caching layers | `--cache`
-| `cache-repository` | Repository for storing cached layers | `--cache-repo`
-| `cache-ttl` | Cache timeout | `--cache-ttl`
-| `push-retry` | Number of retries for the push of an image | `--push-retry`
-| `registry-mirror` | Use registry mirror(s) | `--registry-mirror`
-| `verbosity` | Set the logging level | `--verbosity`
-| `kaniko-args` | Extra args to Kaniko executor | -
+| Name                        | Description                                                                                                                                                                                                                               | Corresponding flag  |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `executor`                  | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.23.0`                                                                                                                                                             | -                   |
+| `context` <sup>\*1</sup>    | Path to the build context. Default to the workspace                                                                                                                                                                                       | -                   |
+| `file` <sup>\*1</sup>       | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`      |
+| `build-args` <sup>\*1</sup> | List of build args                                                                                                                                                                                                                        | `--build-arg`       |
+| `labels` <sup>\*1</sup>     | List of metadata for an image                                                                                                                                                                                                             | `--label`           |
+| `push` <sup>\*1</sup>       | Push an image to the registry. Default to false                                                                                                                                                                                           | `--no-push`         |
+| `tags` <sup>\*1</sup>       | List of tags                                                                                                                                                                                                                              | `--destination`     |
+| `target` <sup>\*1</sup>     | Target stage to build                                                                                                                                                                                                                     | `--target`          |
+| `cache`                     | Enable caching layers                                                                                                                                                                                                                     | `--cache`           |
+| `cache-repository`          | Repository for storing cached layers                                                                                                                                                                                                      | `--cache-repo`      |
+| `cache-ttl`                 | Cache timeout                                                                                                                                                                                                                             | `--cache-ttl`       |
+| `push-retry`                | Number of retries for the push of an image                                                                                                                                                                                                | `--push-retry`      |
+| `registry-mirror`           | Use registry mirror(s)                                                                                                                                                                                                                    | `--registry-mirror` |
+| `verbosity`                 | Set the logging level                                                                                                                                                                                                                     | `--verbosity`       |
+| `kaniko-args`               | Extra args to Kaniko executor (multiline string)                                                                                                                                                                                          | -                   |
 
-<sup>*1</sup> These inputs are compatible with [docker/build-push-action](https://github.com/docker/build-push-action).
+<sup>\*1</sup> These inputs are compatible with [docker/build-push-action](https://github.com/docker/build-push-action).
 
 ### Outputs
 
-| Name | Description
-|------|------------
-| `digest` | Image digest such as `sha256:abcdef...`
+| Name     | Description                             |
+| -------- | --------------------------------------- |
+| `digest` | Image digest such as `sha256:abcdef...` |
 
 ## Examples
 
@@ -107,10 +107,10 @@ See https://github.com/GoogleContainerTools/kaniko#caching for details.
 To enable the layer caching, set a cache repository.
 
 ```yaml
-      - uses: int128/kaniko-action@v1
-        with:
-          cache: true
-          cache-repository: ghcr.io/${{ github.repository }}/cache
+- uses: int128/kaniko-action@v1
+  with:
+    cache: true
+    cache-repository: ghcr.io/${{ github.repository }}/cache
 ```
 
 ### Build a multi-architecture image
@@ -163,4 +163,16 @@ jobs:
           cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
       - run: kustomize edit set image myapp=${{ steps.ecr.outputs.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}
       - run: kustomize build | kubectl apply -f -
+```
+
+### Pass extra args to Kaniko executor
+
+You can pass extra arguments in a multiline string.
+
+```yaml
+- uses: int128/kaniko-action@v1
+  with:
+    kaniko-args: |
+      --key=value
+      --key
 ```
