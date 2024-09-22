@@ -4,7 +4,7 @@ This is an action to build and push a contaier image using [Kaniko](https://gith
 It is just a wrapper of Kaniko executor, that is,
 
 ```sh
-docker run --rm gcr.io/kaniko-project/executor:v1.23.0
+docker run --rm gcr.io/kaniko-project/executor:v1.23.2
 ```
 
 This action is compatible with the Docker's official actions such as [docker/login-action](https://github.com/docker/login-action) or [docker/metadata-action](https://github.com/docker/metadata-action).
@@ -73,7 +73,7 @@ See also the flags of [Kaniko executor](https://github.com/GoogleContainerTools/
 
 | Name | Description | Corresponding flag
 |------|-------------|-------------------
-| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.23.0` | -
+| `executor` | Image of Kaniko executor. Default to `gcr.io/kaniko-project/executor:v1.23.2` | -
 | `context` <sup>*1</sup> | Path to the build context. Default to the workspace | -
 | `file` <sup>*1</sup> | Path to the Dockerfile. Default to `Dockerfile`. It must be in the context. If set, this action passes the relative path to Kaniko, same as the behavior of [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) | `--dockerfile`
 | `build-args` <sup>*1</sup> | List of build args | `--build-arg`
