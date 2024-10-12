@@ -17,6 +17,7 @@ const defaultInputs = {
   push: false,
   tags: [],
   target: '',
+  dockerRunArgs: [],
 }
 
 test('default args', () => {
@@ -61,6 +62,7 @@ test('full args', () => {
       push: false,
       tags: ['helloworld:latest', 'ghcr.io/int128/kaniko-action/example:v1.0.0'],
       target: 'server',
+      dockerRunArgs: ['-v', '/secrets:/secrets:ro'],
     },
     '/tmp/kaniko-action',
   )
@@ -76,6 +78,9 @@ test('full args', () => {
     `${os.homedir()}/.docker/:/kaniko/.docker/:ro`,
     '-e',
     'container=docker',
+    '-v',
+    '/secrets:/secrets:ro',
+    // executor
     'gcr.io/kaniko-project/executor:latest',
     // kaniko args
     '--context',

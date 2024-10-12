@@ -20,18 +20,21 @@ inputs:
     description: Number of retries for the push of an image
     required: false
   registry-mirror:
-    description: Use registry mirror(s)
+    description: Use registry mirror(s) (multiline)
     required: false
   verbosity:
     description: Set the logging level
     required: false
   kaniko-args:
-    description: Extra args to Kaniko executor
+    description: Extra args to Kaniko executor (multiline)
+    required: false
+  docker-run-args:
+    description: Extra args to docker run (multiline)
     required: false
 
   # compatible with https://github.com/docker/build-push-action
   build-args:
-    description: List of build args
+    description: List of build args (multiline)
     required: false
   context:
     description: Path to the build context
@@ -40,14 +43,14 @@ inputs:
     description: Path to the Dockerfile
     required: false
   labels:
-    description: List of metadata for an image
+    description: List of metadata for an image (multiline)
     required: false
   push:
     description: Push an image to the registry
     required: true
     default: 'false'
   tags:
-    description: List of tags
+    description: List of tags (multiline)
     required: false
   target:
     description: Target stage to build
