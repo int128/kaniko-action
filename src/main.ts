@@ -11,6 +11,7 @@ const main = async (): Promise<void> => {
     registryMirrors: core.getMultilineInput('registry-mirror'),
     verbosity: core.getInput('verbosity'),
     kanikoArgs: core.getMultilineInput('kaniko-args'),
+    dockerRunArgs: core.getMultilineInput('docker-run-args'),
     buildArgs: core.getMultilineInput('build-args'),
     context: core.getInput('context'),
     file: core.getInput('file'),
