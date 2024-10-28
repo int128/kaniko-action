@@ -14,7 +14,7 @@
   "devDependencies": {
     "@tsconfig/node20": "20.1.4",
     "@types/jest": "29.5.14",
-    "@types/node": "20.17.1",
+    "@types/node": "20.17.2",
     "@vercel/ncc": "0.38.2",
     "eslint": "9.13.0",
     "eslint-plugin-jest": "28.8.3",
