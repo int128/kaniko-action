@@ -4,7 +4,7 @@
     "format": "prettier --write **/*.ts",
     "lint": "eslint .",
     "build": "ncc build --source-map --license licenses.txt src/main.ts",
-    "test": "jest"
+    "test": "vitest"
   },
   "type": "module",
   "dependencies": {
@@ -14,18 +14,16 @@
   "devDependencies": {
     "@eslint/js": "9.28.0",
     "@tsconfig/node20": "20.1.5",
-    "@types/jest": "29.5.14",
     "@types/node": "20.19.0",
     "@vercel/ncc": "0.38.3",
+    "@vitest/eslint-plugin": "^1.2.1",
     "eslint": "9.28.0",
-    "eslint-plugin-jest": "28.13.0",
-    "jest": "29.7.0",
     "js-yaml": "4.1.0",
     "pnpm": "10.11.1",
     "prettier": "3.5.3",
-    "ts-jest": "29.3.4",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.33.1"
+    "typescript-eslint": "8.33.1",
+    "vitest": "^3.2.2"
   },
   "packageManager": "pnpm@10.11.1"
 }
