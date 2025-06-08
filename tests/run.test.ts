@@ -1,3 +1,5 @@
+import { it, expect } from 'vitest'
+
 import * as os from 'os'
 import { generateArgs } from '../src/run.js'
 
@@ -20,7 +22,7 @@ const defaultInputs = {
   dockerRunArgs: [],
 }
 
-test('default args', () => {
+it('default args', () => {
   const args = generateArgs(defaultInputs, '/tmp/kaniko-action')
   expect(args).toStrictEqual([
     // docker args
@@ -44,7 +46,7 @@ test('default args', () => {
   ])
 })
 
-test('full args', () => {
+it('full args', () => {
   const args = generateArgs(
     {
       executor: 'gcr.io/kaniko-project/executor:latest',
@@ -122,7 +124,7 @@ test('full args', () => {
   ])
 })
 
-test('with dockerfile', () => {
+it('with dockerfile', () => {
   const args = generateArgs(
     {
       ...defaultInputs,
