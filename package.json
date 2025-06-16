@@ -14,7 +14,7 @@
   "devDependencies": {
     "@eslint/js": "9.29.0",
     "@tsconfig/node20": "20.1.6",
-    "@types/node": "20.19.0",
+    "@types/node": "20.19.1",
     "@vercel/ncc": "0.38.3",
     "@vitest/eslint-plugin": "1.2.5",
     "eslint": "9.29.0",
