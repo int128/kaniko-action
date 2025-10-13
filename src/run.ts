@@ -1,8 +1,8 @@
+import { promises as fs } from 'node:fs'
+import * as os from 'node:os'
+import * as path from 'node:path'
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
-import { promises as fs } from 'fs'
-import * as os from 'os'
-import * as path from 'path'
 
 type Inputs = {
   executor: string

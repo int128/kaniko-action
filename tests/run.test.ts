@@ -1,6 +1,5 @@
-import { it, expect } from 'vitest'
-
-import * as os from 'os'
+import * as os from 'node:os'
+import { expect, it } from 'vitest'
 import { generateArgs } from '../src/run.js'
 
 const defaultInputs = {
