@@ -10,7 +10,7 @@
     "@actions/exec": "1.1.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.5",
+    "@biomejs/biome": "2.3.7",
     "@tsconfig/node20": "20.1.7",
     "@types/node": "20.19.25",
     "@vercel/ncc": "0.38.4",
