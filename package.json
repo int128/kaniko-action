@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "build": "ncc build --source-map --license licenses.txt src/main.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "check": "biome migrate --write && biome check --fix"
   },
   "type": "module",
   "dependencies": {
