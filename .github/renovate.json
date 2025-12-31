@@ -19,5 +19,6 @@
       "depNameTemplate": "gcr.io/kaniko-project/executor",
       "datasourceTemplate": "docker"
     }
-  ]
+  ],
+  "platformAutomerge": true
 }
