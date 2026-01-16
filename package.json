@@ -7,7 +7,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@actions/core": "2.0.1",
+    "@actions/core": "2.0.2",
     "@actions/exec": "2.0.0"
   },
   "devDependencies": {
