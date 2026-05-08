@@ -23,4 +23,4 @@ jobs:
       - run: corepack enable
       - run: pnpm i
       - run: pnpm build
-      - uses: int128/release-typescript-action@90a8e259a03f1ffe509b9e0ee19e247461a58818 # v1.61.0
+      - uses: int128/release-typescript-action@a7c8dd107b38f1a3b4f20f6a17a8e39517b43220 # v1.65.0
