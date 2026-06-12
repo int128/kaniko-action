@@ -28,8 +28,8 @@ importers:
         specifier: 0.38.4
         version: 0.38.4
       js-yaml:
-        specifier: 4.1.1
-        version: 4.1.1
+        specifier: 4.2.0
+        version: 4.2.0
       pnpm:
         specifier: 11.5.2
         version: 11.5.2
@@ -326,8 +326,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  js-yaml@4.1.1:
-    resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
+  js-yaml@4.2.0:
+    resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
     hasBin: true
 
   lightningcss-android-arm64@1.32.0:
@@ -797,7 +797,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  js-yaml@4.1.1:
+  js-yaml@4.2.0:
     dependencies:
       argparse: 2.0.1
 
