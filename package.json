@@ -14,7 +14,7 @@
     "@biomejs/biome": "2.5.0",
     "@tsconfig/node24": "24.0.4",
     "@types/node": "24.13.2",
-    "@vercel/ncc": "0.38.4",
+    "@vercel/ncc": "0.44.0",
     "js-yaml": "4.2.0",
     "pnpm": "11.5.2",
     "typescript": "6.0.3",
