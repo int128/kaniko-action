@@ -16,9 +16,9 @@
     "@types/node": "24.13.2",
     "@vercel/ncc": "0.44.0",
     "js-yaml": "4.2.0",
-    "pnpm": "11.6.0",
+    "pnpm": "11.8.0",
     "typescript": "6.0.3",
     "vitest": "4.1.9"
   },
-  "packageManager": "pnpm@11.6.0"
+  "packageManager": "pnpm@11.8.0"
 }
