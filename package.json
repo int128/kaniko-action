@@ -16,7 +16,7 @@
     "@types/node": "24.13.3",
     "@vercel/ncc": "0.45.0",
     "pnpm": "11.20.0",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vitest": "4.1.10"
   },
   "packageManager": "pnpm@11.20.0"
