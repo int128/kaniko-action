@@ -9,7 +9,7 @@ inputs:
   cache:
     description: Enable caching layers
     required: true
-    default: 'false'
+    default: "false"
   cache-repository:
     description: Remote repository for storing cached layers
     required: false
@@ -48,7 +48,7 @@ inputs:
   push:
     description: Push an image to the registry
     required: true
-    default: 'false'
+    default: "false"
   tags:
     description: List of tags (multiline)
     required: false
@@ -58,8 +58,8 @@ inputs:
 
 outputs:
   digest:
-    description: 'Image content-addressable identifier also called a digest'
+    description: "Image content-addressable identifier also called a digest"
 
 runs:
-  using: 'node24'
-  main: 'dist/index.js'
+  using: "node24"
+  main: "dist/index.js"
