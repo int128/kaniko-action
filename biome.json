@@ -17,5 +17,8 @@
       "quoteStyle": "single",
       "semicolons": "asNeeded"
     }
+  },
+  "files": {
+    "includes": ["**", "!.github/workflows"]
   }
 }
