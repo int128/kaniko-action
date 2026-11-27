@@ -185,9 +185,9 @@ importers:
       '@biomejs/biome':
         specifier: 2.6.8
         version: 2.6.8
-      '@tsconfig/node24':
-        specifier: 24.0.6
-        version: 24.0.6
+      '@tsconfig/node26':
+        specifier: 26.0.0
+        version: 26.0.0
       '@types/node':
         specifier: 24.19.2
         version: 24.19.2
@@ -502,8 +502,8 @@ packages:
   '@rolldown/pluginutils@1.1.1':
     resolution: {integrity: sha512-glFIJDvLNDtJhT9qrMFWLPbvS+skxgt4L0K8Ei2YtnhPysAJnsI7nyxSJxKj4ADeKX0OLjC4ntRkwpLOoS3rwA==}
 
-  '@tsconfig/node24@24.0.6':
-    resolution: {integrity: sha512-/SK4JuydRQLGSCq7+hbiQ8fdAVR4Suv5EcBvkIAG3zo3GbXQvGoSclz4olL12Ar4OpH8gwGYJ67P4wwQqBRxKw==}
+  '@tsconfig/node26@26.0.0':
+    resolution: {integrity: sha512-AlW882moMu/JzvTVjdGqJEsrqD5nSWHiFD7Aeuw6Rb58S4Aig+09mDUFFlXJx/y6/y77NwGYLlqhWxvolcC0sw==}
 
   '@tybys/wasm-util@0.10.5':
     resolution: {integrity: sha512-dOGOPxlaNV+G046mZzN+9C0dAcQZeSKcXiVaM0TYy/LM4ttTmgSBDxYfovcYI8Em3+eAbiAYpvWLOv8+ZVRJKA==}
@@ -1002,7 +1002,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.1.1': {}
 
-  '@tsconfig/node24@24.0.6': {}
+  '@tsconfig/node26@26.0.0': {}
 
   '@tybys/wasm-util@0.10.5':
     dependencies:
